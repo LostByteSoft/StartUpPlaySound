@@ -4,15 +4,12 @@
 
 	SetEnv, title, StartUpPlaySound
 	SetEnv, mode, Play the sound you want at Windows Start up.
-	SetEnv, version, Version 2017-03-07
+	SetEnv, version, Version 2017-03-07-10:43
 	SetEnv, author, LostByteSoft
 
 ;;--- Software options ---
 
 	#SingleInstance Force
-	IniRead, soundfile, StartUpPlaySound.ini, options, sound
-	IniRead, random, StartUpPlaySound.ini, options, random
-	IfNotExist, StartUpPlaySound.ini, SetEnv, random, 1
 
 ;;--- Tray options ---
 
@@ -24,13 +21,16 @@
 
 start:
 	sleep, 3000
+	IniRead, soundfile, StartUpPlaySound.ini, options, sound
+	IniRead, random, StartUpPlaySound.ini, options, random
+	IfNotExist, StartUpPlaySound.ini, goto, default
 	IfEqual, random, 0, goto, normal
 	IfEqual, random, 1, goto, random
 	MsgBox, Error_01: normal=%normal% random=%random% Now Exit
 	goto, GuiClose
 
 normal:					;; Play your music.
-	IfNotExist, %soundfile%, MsgBox, Error_02: File not found. Audio file must be in same folder as StartUpPlaySound.exe
+	IfNotExist, %soundfile%, MsgBox , 0, Error_02, File not found. Audio file must be in same folder as StartUpPlaySound.exe, 3
 	goto, playfile
 
 random:					;; Generate random audio file to play. Windows start sound.
@@ -44,11 +44,18 @@ random:					;; Generate random audio file to play. Windows start sound.
 	IfEqual, number, 7, SetEnv, soundfile, win2000.mp3
 	IfEqual, number, 8, SetEnv, soundfile, winxp.mp3
 	IfEqual, number, 9, SetEnv, soundfile, Win10.wav
-	IfNotExist, %soundfile%, MsgBox, Error_03: File not found. Audio file must be in same folder as StartUpPlaySound.exe
+	IfNotExist, %soundfile%, MsgBox , 0, Error_03, File not found. Audio file must be in same folder as StartUpPlaySound.exe, 3
 	goto, playfile
 
 playfile:				;; Play the file and wait to finish
+	IfNotExist, %soundfile%, goto, default
 	SoundPlay, %soundfile%, wait
+	Sleep, 1000
+	goto, GuiClose
+
+default:
+	FileInstall, win95.mp3, win95.mp3, 0
+	SoundPlay, win95.mp3, wait
 	Sleep, 1000
 	goto, GuiClose
 
