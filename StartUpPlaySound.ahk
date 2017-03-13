@@ -11,19 +11,19 @@
 
 	SetEnv, title, StartUpPlaySound
 	SetEnv, mode, Play the sound you want at Windows Start up.
-	SetEnv, version, Version 2017-03-11
+	SetEnv, version, Version 2017-03-13
 	SetEnv, author, LostByteSoft
 
 	FileInstall, StartUpPlaySound.ini, StartUpPlaySound.ini, 0
-	FileInstall, nt4.mp3, nt4.mp3
-	FileInstall, vista.mp3, vista.mp3, 0
-	FileInstall, wfw311.mp3, wfw311.mp3, 0
-	FileInstall, win31.mp3, win31.mp3, 0
-	FileInstall, win95.mp3, win95.mp3, 0
-	FileInstall, win98.mp3, win98.mp3, 0
-	FileInstall, win2000.mp3, win2000.mp3, 0
-	FileInstall, winxp.mp3, winxp.mp3, 0
-	FileInstall, Win10.wav, Win10.wav, 0
+	FileInstall, snd_nt4.mp3, snd_nt4.mp3
+	FileInstall, snd_vista.mp3, vista.mp3, 0
+	FileInstall, snd_wfw311.mp3, snd_wfw311.mp3, 0
+	FileInstall, snd_win31.mp3, snd_win31.mp3, 0
+	FileInstall, snd_win95.mp3, snd_win95.mp3, 0
+	FileInstall, snd_win98.mp3, snd_win98.mp3, 0
+	FileInstall, snd_win2000.mp3, snd_win2000.mp3, 0
+	FileInstall, snd_winxp.mp3, snd_winxp.mp3, 0
+	FileInstall, snd_Win10.wav, snd_Win10.wav, 0
 	FileInstall, ico_about.ico, ico_about.ico, 0
 	FileInstall, ico_lock.ico, ico_lock.ico, 0
 	FileInstall, ico_reboot.ico, ico_reboot.ico, 0
@@ -40,6 +40,7 @@
 	Menu, tray, add, About, about				; Creates a new menu item.
 	Menu, Tray, Icon, About, ico_about.ico, 1
 	Menu, tray, add, Version, version			; About version
+	Menu, Tray, Tip, %mode%
 
 ;;--- Software start here ---
 
@@ -58,15 +59,15 @@ start:
 
 random:								; Generate random audio file to play. Windows start sound.
 	Random, number, 1, 9
-	IfEqual, number, 1, SetEnv, soundfile, nt4.mp3
-	IfEqual, number, 2, SetEnv, soundfile, vista.mp3
-	IfEqual, number, 3, SetEnv, soundfile, wfw311.mp3
-	IfEqual, number, 4, SetEnv, soundfile, win31.mp3
-	IfEqual, number, 5, SetEnv, soundfile, win95.mp3
-	IfEqual, number, 6, SetEnv, soundfile, win98.mp3
-	IfEqual, number, 7, SetEnv, soundfile, win2000.mp3
-	IfEqual, number, 8, SetEnv, soundfile, winxp.mp3
-	IfEqual, number, 9, SetEnv, soundfile, Win10.wav
+	IfEqual, number, 1, SetEnv, soundfile, snd_nt4.mp3
+	IfEqual, number, 2, SetEnv, soundfile, snd_vista.mp3
+	IfEqual, number, 3, SetEnv, soundfile, snd_wfw311.mp3
+	IfEqual, number, 4, SetEnv, soundfile, snd_win31.mp3
+	IfEqual, number, 5, SetEnv, soundfile, snd_win95.mp3
+	IfEqual, number, 6, SetEnv, soundfile, snd_win98.mp3
+	IfEqual, number, 7, SetEnv, soundfile, snd_win2000.mp3
+	IfEqual, number, 8, SetEnv, soundfile, snd_winxp.mp3
+	IfEqual, number, 9, SetEnv, soundfile, snd_Win10.wav
 	IfNotExist, %soundfile%, MsgBox , 0, Error_03, File not found. Audio file must be in same folder as StartUpPlaySound.exe
 	goto, playfile
 
