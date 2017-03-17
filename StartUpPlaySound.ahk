@@ -11,12 +11,12 @@
 
 	SetEnv, title, StartUpPlaySound
 	SetEnv, mode, Play the sound you want at Windows Start up.
-	SetEnv, version, Version 2017-03-13
+	SetEnv, version, Version 2017-03-14
 	SetEnv, author, LostByteSoft
 
 	FileInstall, StartUpPlaySound.ini, StartUpPlaySound.ini, 0
 	FileInstall, snd_nt4.mp3, snd_nt4.mp3
-	FileInstall, snd_vista.mp3, vista.mp3, 0
+	FileInstall, snd_vista.mp3, snd_vista.mp3, 0
 	FileInstall, snd_wfw311.mp3, snd_wfw311.mp3, 0
 	FileInstall, snd_win31.mp3, snd_win31.mp3, 0
 	FileInstall, snd_win95.mp3, snd_win95.mp3, 0
